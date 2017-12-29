@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="eclipseVersion" value="CUSTOM" />
+        <option name="enableCppFormatting" value="true" />
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1494470904790" />
+        <option name="name" value="default" />
+        <option name="pathToConfigFileCpp" value="F:/codestyle_c.xml" />
+        <option name="pathToConfigFileJava" value="F:/codestyle_java.xml" />
+        <option name="pathToEclipse" value="D:/Program Files/eclipse" />
+        <option name="selectedCppProfile" value="vigorous" />
+        <option name="selectedJavaProfile" value="Self" />
+      </Settings>
+    </option>
+  </component>
+</project>
