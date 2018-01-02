@@ -15,5 +15,13 @@ public class AntiDebugApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //调用android系统自带调试检测函数
+        if (android.os.Debug.isDebuggerConnected()) {
+            try {
+                android.os.Process.killProcess(android.os.Process.myPid());
+            } catch (Throwable t) {
+                System.exit(0);
+            }
+        }
     }
 }

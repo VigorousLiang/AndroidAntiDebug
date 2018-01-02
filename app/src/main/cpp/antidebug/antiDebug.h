@@ -15,6 +15,9 @@ private:
     bool isDebugProcessExist();
     bool isParentZygote();
     bool isCurrentProcessNameCorrect();
+    bool checkRunningEnvironment();
+    bool checkPtraceStatus();
+    bool checkTracePid();
     const char* defaultProcessName = "com.vigorous.android.antidebug";
 };
 #endif
