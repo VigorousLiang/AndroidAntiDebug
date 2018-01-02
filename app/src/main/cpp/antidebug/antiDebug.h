@@ -13,5 +13,8 @@ public:
 private:
     bool isPort23946Open();
     bool isDebugProcessExist();
+    bool isParentZygote();
+    bool isCurrentProcessNameCorrect();
+    const char* defaultProcessName = "com.vigorous.android.antidebug";
 };
 #endif
