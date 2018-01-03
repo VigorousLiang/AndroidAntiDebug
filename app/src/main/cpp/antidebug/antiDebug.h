@@ -4,11 +4,16 @@
 
 #include <jni.h>
 
+typedef uint8_t u8;
+typedef uint32_t u32;
+
 class AntiDebug{
+
 public:
     AntiDebug();
 
     bool anti_debug(JNIEnv *env);
+    bool checkBreakPointCMD(u8* addr,u32 size);
 
 private:
     bool isPort23946Open();

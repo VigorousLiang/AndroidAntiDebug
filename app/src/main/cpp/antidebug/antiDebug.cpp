@@ -53,6 +53,60 @@ bool AntiDebug::anti_debug(JNIEnv *env) {
     return false;
 }
 /**
+ * 检测特定函数中是否存在断点指令
+ * @param addr
+ * @param size
+ * @return true 发现断点指令 false 未发现断点指令
+ */
+bool AntiDebug::checkBreakPointCMD(u8* addr, u32 size) {
+    // arm架构cpu断点指令
+    u8 armBkpt[4] = { 0 };
+    armBkpt[0] = 0xf0;
+    armBkpt[1] = 0x01;
+    armBkpt[2] = 0xf0;
+    armBkpt[3] = 0xe7;
+    //thumb指令集断点指令
+    u8 thumbBkpt[2] = { 0 };
+    thumbBkpt[0] = 0x10;
+    thumbBkpt[1] = 0xde;
+    // 判断模式
+    int mode = (u32) addr % 2;
+    if (1 == mode) {
+        LOGI("checkbkpt:(thumb mode)该地址为thumb模式");
+        u8* start = (u8*) ((u32) addr - 1);
+        u8* end = (u8*) ((u32) start + size);
+        // 遍历对比
+        while (1) {
+            if (start >= end) {
+                LOGI("checkbkpt:(no find bkpt)没有发现断点.");
+                break;
+            }
+            if (0 == memcmp(start, thumbBkpt, 2)) {
+                LOGI("checkbkpt:(find it)发现断点.");
+                return true;
+            }
+            start = start + 2;
+        }
+    } else {
+        LOGI("checkbkpt:(arm mode)该地址为arm模式");
+        u8* start = (u8*) addr;
+        u8* end = (u8*) ((u32) start + size);
+        // 遍历对比
+        while (1) {
+            if (start >= end) {
+                LOGI("checkbkpt:(no find)没有发现断点.");
+                break;
+            }
+            if (0 == memcmp(start, armBkpt, 4)) {
+                LOGI("checkbkpt:(find it)发现断点.");
+                return true;
+            }
+            start = start + 4;
+        }
+    }
+    return false;
+}
+/**
  * 检测Android_server常用的23946端口是否开启
  * @return
  */
